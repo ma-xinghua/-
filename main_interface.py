@@ -37,7 +37,7 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         self.pushButton.clicked.connect(Dialog.add)
         self.pushButton_2.clicked.connect(Dialog.delete)
-        self.pushButton_3.clicked.connect(Dialog.import)
+        self.pushButton_3.clicked.connect(Dialog.import_list)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
