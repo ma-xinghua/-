@@ -1,9 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import tkinter
+from PyQt5.QtWidgets import QFileDialog,QMessageBox
+from tkinter.filedialog import askopenfilename
+import tkinter.messagebox
 
-def create_soup():
-        f = open("Microsoft_Edge_‎04_‎11_‎2019.html", encoding="utf-8")
+def create_soup(filename):
+        f = open(filename, encoding="utf-8")
         soup = BeautifulSoup(f, 'html.parser')
         return soup
 
@@ -38,12 +42,15 @@ def merge(urllist2):
     with open('file_list.json', 'w', encoding='utf-8') as f:
         json.dump(urllist, f, ensure_ascii=False, indent=2)
 
-def main():
-        soup = create_soup()
+def import1():
+        root = tkinter.Tk()      
+        root.withdraw()
+        file = askopenfilename()
+        root.destroy()
+        name = file.split('/')[-1]
+        soup = create_soup(name)
         dumps_json(soup)
-                
+        
 
-if __name__ == '__main__':
-        main()
 
 

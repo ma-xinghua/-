@@ -1,4 +1,6 @@
+#coding=utf-8
 import sys
+from down_mark import*
 from main_interface import Ui_Dialog
 from add_interface import Ui_Dialog_add
 from PyQt5 import QtWidgets, QtGui
@@ -29,7 +31,9 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
         print ("delete")
 
     def import_list(self):
-        print ("import")
+        import1()
+        information=QMessageBox.information(self,"提示","成功")
+        
 
 
 if __name__ == "__main__":   
