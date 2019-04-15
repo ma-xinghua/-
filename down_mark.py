@@ -47,10 +47,14 @@ def import1():
         root.withdraw()
         file = askopenfilename()
         root.destroy()
-        name = file.split('/')[-1]
-        soup = create_soup(name)
-        dumps_json(soup)
+        if (file!=""):
+                name = file.split('/')[-1]
+                soup = create_soup(name)
+                dumps_json(soup)
+                return 1
         
+        else:
+                return 0
 
 
 

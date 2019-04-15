@@ -25,7 +25,8 @@ class add_window(QtWidgets.QWidget, Ui_Dialog_add):
                 with open('file_list.json', 'w', encoding='utf-8') as f:
                     json.dump(Data.urllist, f, ensure_ascii=False, indent=2)
                 f.close()
-                self.close()
+                self.destroy()
+                
                 return
         Data.urllist.update({Data.name:Data.url})
         with open('file_list.json', 'w', encoding='utf-8') as f:
@@ -33,11 +34,11 @@ class add_window(QtWidgets.QWidget, Ui_Dialog_add):
         f.close()
 
         self.prior.adddisplay()
-        self.close()
-        
+        self.destroy()
+    
         
     def cancel(self):
-        self.close()
+        self.destroy()
 
 
 class father_window(QtWidgets.QWidget, Ui_Dialog):
@@ -52,8 +53,7 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
     def add(self):
         self.add_app = QtWidgets.QApplication(sys.argv)
         self.add_show = add_window(self)
-        self.add_show.show()
-                               
+        self.add_show.show()       
                             
     def delete(self):
         deletename=self.listWidget.currentItem().text()
@@ -65,9 +65,12 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
 
 
     def import_list(self):
-        import1()
-        information=QMessageBox.information(self,"提示","成功")
-    
+        t=import1()
+        if (t==1):
+            information=QMessageBox.information(self,"提示","成功")
+        elif (t==0):
+            information=QMessageBox.information(self,"提示","没有文件导入")
+            
     def open(self):
         name=self.listWidget.currentItem().text()
         urllong=Data.urllist[name]
