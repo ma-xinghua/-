@@ -56,7 +56,13 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
                                
                             
     def delete(self):
-        print ("delete")
+        deletename=self.listWidget.currentItem().text()
+        self.listWidget.takeItem(self.listWidget.currentRow())
+        Data.urllist.pop(deletename)
+        with open('file_list.json', 'w', encoding='utf-8') as f:
+                    json.dump(Data.urllist, f, ensure_ascii=False, indent=2)
+        f.close()
+
 
     def import_list(self):
         import1()
