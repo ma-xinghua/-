@@ -12,9 +12,14 @@ import pypinyin
 
 class add_window(QtWidgets.QWidget, Ui_Dialog_add):
     def __init__(self,prior):
-        super(add_window, self).__init__()
+        print(1)
+        print(self)
+        QtWidgets.QWidget.__init__(self)
+        print(2)
         self.setupUi(self)
+        print(3)
         self.prior=prior
+        print(4)
 
     def confirm(self):
         Data.name=self.lineEdit.text()
@@ -25,20 +30,21 @@ class add_window(QtWidgets.QWidget, Ui_Dialog_add):
                 with open('file_list.json', 'w', encoding='utf-8') as f:
                     json.dump(Data.urllist, f, ensure_ascii=False, indent=2)
                 f.close()
-                self.destroy()
-                
+                self.hide()               
                 return
         Data.urllist.update({Data.name:Data.url})
         with open('file_list.json', 'w', encoding='utf-8') as f:
             json.dump(Data.urllist, f, ensure_ascii=False, indent=2)
         f.close()
-
         self.prior.adddisplay()
-        self.destroy()
-    
-        
+        self.hide()
+        self.lineEdit.clear()
+        self.lineEdit_2.clear()
+
     def cancel(self):
-        self.destroy()
+        self.hide()
+        self.lineEdit.clear()
+        self.lineEdit_2.clear()
 
 
 class father_window(QtWidgets.QWidget, Ui_Dialog):
@@ -49,12 +55,12 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
             self.listWidget.addItem(name)                    
         self.listWidget.doubleClicked.connect(self.open)
         self.lineEdit.textChanged.connect(self.showlist)
-
-    def add(self):
         self.add_app = QtWidgets.QApplication(sys.argv)
         self.add_show = add_window(self)
-        self.add_show.show()       
-                            
+
+    def add(self):
+        self.add_show.show()
+                                         
     def delete(self):
         deletename=self.listWidget.currentItem().text()
         self.listWidget.takeItem(self.listWidget.currentRow())
