@@ -15,7 +15,6 @@ class add_window(QtWidgets.QWidget, Ui_Dialog_add):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
         self.prior=prior          #传入父窗口
-        self.prior=prior
 
     def confirm(self):           #添加功能的实现
         Data.name=self.lineEdit.text()
@@ -52,8 +51,6 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
         for name in Data.urllist:
             self.listWidget.addItem(name)                    
         self.listWidget.doubleClicked.connect(self.open)
-        self.lineEdit.textChanged.connect(self.showlist)
-        self.add_app = QtWidgets.QApplication(sys.argv)   #直接创建子窗口
         self.lineEdit.textChanged.connect(self.showlist)    #检测父窗口中输入框的文字是否变化，并发射信号，连接showlist函数
         self.add_app = QtWidgets.QApplication(sys.argv)
         self.add_show = add_window(self)

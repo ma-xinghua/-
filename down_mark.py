@@ -12,13 +12,12 @@ def create_soup(filename):      #获取与html文本一样的解析文档
         soup = BeautifulSoup(f, 'html.parser')
         return soup
 
-def dumps_json(soup):   #将soup的内容写入字典
+def dumps_json(soup,father_window):   #将soup的内容写入字典
         openlist = dict()
         tag_a = soup.find_all('a')
         for a in tag_a:
                 openlist[a.string] = a.get('href')
-        merge(openlist,father_window)
-        merge(openlist) #调用函数，与原openlist合并
+        merge(openlist,father_window)   #调用函数，与原openlist合并
 
 def merge(urllist2,father_window):
     with open('file_list.json', 'r', encoding='utf-8') as f_obj:
@@ -41,8 +40,6 @@ def merge(urllist2,father_window):
        
     #for name,url in urllist.items():
     #   print (name,url)
-
-
     with open('file_list.json', 'w', encoding='utf-8') as f:
         json.dump(urllist, f, ensure_ascii=False, indent=2)     #写入json文件
 
