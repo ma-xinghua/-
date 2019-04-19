@@ -15,6 +15,7 @@ class add_window(QtWidgets.QWidget, Ui_Dialog_add):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
         self.prior=prior          #传入父窗口
+        self.prior=prior
 
     def confirm(self):           #添加功能的实现
         Data.name=self.lineEdit.text()
@@ -53,6 +54,8 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
         self.listWidget.doubleClicked.connect(self.open)
         self.lineEdit.textChanged.connect(self.showlist)
         self.add_app = QtWidgets.QApplication(sys.argv)   #直接创建子窗口
+        self.lineEdit.textChanged.connect(self.showlist)    #检测父窗口中输入框的文字是否变化，并发射信号，连接showlist函数
+        self.add_app = QtWidgets.QApplication(sys.argv)
         self.add_show = add_window(self)
 
     def add(self):
@@ -84,12 +87,11 @@ class father_window(QtWidgets.QWidget, Ui_Dialog):
     def adddisplay(self):              #在添加完成后显示内容
         self.listWidget.addItem(Data.name) 
 
-    def showlist(self):
+    def showlist(self): #用于搜索后结果的显示
         keywd = self.lineEdit.text().strip()
         if keywd:
-            self.listWidget.clear()
-            # print(urllist)
-            for item in Data.urllist:
+            self.listWidget.clear() #清空显示框
+            for item in Data.urllist:   #对大小写及拼音的识别转换
                 if (keywd.lower() in item.lower()) or (keywd.lower() in pypinyin.slug(item.lower(), separator='') or
                                                        (keywd.lower() in pypinyin.slug(item.lower(),
                                                                                        style=Style.FIRST_LETTER,
